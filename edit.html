@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<meta charset="urf-8"/>
+		<title>Update GPU information</title>
+		<style type="text/css">
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+		thead {
+			background: #737373;
+			color: #fff;
+		}
+		td, th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 6px;
+		}
+		tr:nth-child(even) {
+			background-color: #EEEEEE;
+		}
+		body {
+      font-family: "Times New Roman", Times, serif;
+    }
+    a:visited {
+      color: blue;
+    }
+    a:hover {
+      color: green;
+    }
+</style>
+	</head>
+	<body>
+		{% if user %}
+		<form method = "post">
+			 <h4> GPU Name: <input type = "text" name = "name" value="{{ mygpu.key.id() }}" size="30" disabled/></h4>
+			 <h4> Manufacturer Name: <input type = "text" name = "manu" value = "{{ mygpu.manufacturer }}" size="30" disabled/></h4>
+			 <h4> Date Issued: <input type = "text" name = "date" value ="{{ mygpu.dateIssued }}" size="30" disabled/></h4>
+			<ul>
+				<li><input type = "checkbox" name ="geometryShader" {% if mygpu.geometryShader %} checked {% endif %} />Geometry Try Shader</br></li>
+				<li><input type = "checkbox" name ="tesselationShader" {% if mygpu.tesselationShader %} checked {% endif %} />Tesselation Shader</br></li>
+				<li><input type = "checkbox" name ="shaderInt16" {% if mygpu.shaderInt16 %} checked {% endif %}  />Shader Int16</br></li>
+				<li><input type = "checkbox" name ="sparseBinding" {% if mygpu.sparseBinding %} checked {% endif %} />Sparse Binding</br></li>
+				<li><input type = "checkbox" name ="textureCompressionETC2" {% if mygpu.textureCompressionETC2 %} checked {% endif %} />Texture Compression ETC2</br></li>
+				<li><input type = "checkbox" name ="vertexPipelineStoresAndAtomics" {% if mygpu.vertexPipelineStoresAndAtomics %} checked {% endif %} />Vertex Pipeline Stores And Atomics</br></li>
+			</ul>
+			<button style="font-size: 16px; height: 25px; width: 70px;" type="submit">Submit</button>
+			<button style="font-size: 16px; height: 25px; width: 70px;" type="submit">Cancel</button>
+		</form>
+	{% else %}
+	<h3 style="text-align:right;">Please login to start</h3>
+    {% endif %}
+    <h3 style="text-align:right;">Click {{ url_string }} <a href='{{ url }}'>here</a> </h3>
+	</body>
+</html>

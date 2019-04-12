@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>GPU Web App</title>
+    <style type="text/css">
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    thead {
+      background: #737373;
+      color: #fff;
+    }
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 6px;
+    }
+    tr:hover:nth-child(even) {
+      background-color: #EEEEEE;
+    }
+    body {
+      font-family: "Times New Roman", Times, serif;
+    }
+    a:visited {
+      color: blue;
+    }
+    a:hover {
+      color: green;
+    }
+</style>
+  </head>
+  <body>
+	<h1 style="text-align:center;"> Assignment_01 GPU Database of Vulkan Features </h1>
+  <h3 style="text-align:right;"> Please {{ url_string }} <a href='{{ url }}'>here</a></h3>
+    {% if user %}
+  <h3 style="text-align:left;"> Below is the form for adding GPU </h3>
+		<form method = "post" action="/">
+		        <h4> Enter GPU Name:  <input type = "text" name = "name" placeholder = "Example: GeForce" /> </h4>
+            <h4> Enter Manufacturer Name: <input type = "text" name = "manu" placeholder = "Example: Radeon" /> </h4>
+            <h4> Select Date Issued <input type = "date" name = "date_issued" /> </h4>
+            <h4> Choose features of GPU:
+            <ul>
+                <li><input type = "checkbox" name ="geometryShader" />Geometry Shader</br></li>
+                <li><input type = "checkbox" name ="tesselationShader" />Tesselation Shader</br></li>
+                <li><input type = "checkbox" name ="shaderInt16" />Shader Int16</br></li>
+                <li><input type = "checkbox" name ="sparseBinding" />Sparse Binding</br></li>
+                <li><input type = "checkbox" name ="textureCompressionETC2" />Texture Compression ETC2</br></li>
+                <li><input type = "checkbox" name ="vertexPipelineStoresAndAtomics" />Vertex Pipeline Stores And Atomics</br></br></li>
+            </ul>
+             <button style="font-size: 18px; height: 27px; width: 82px;" type="submit">Submit</button>
+		</form>
+    {% else %}
+    <h2 style="text-align:center;">  Welcome to the application </h2>
+    {% endif %}
+	   <h2 style="text-align:center;"> GPU's Listing reports </h2>
+  <form method="get">
+      <table>
+      <thead>
+        <tr>
+          <th> <button style="font-size: 18px; height: 27px; width: 82px;" type="submit">Compare</button></th>
+          <th> GPU name </th>
+          <th> Manufacturer name </th>
+          <th> Date issued </th>
+          <th> GeometryShader </th>
+          <th> TesselationShader </th>
+          <th> ShaderInt16 </th>
+          <th> SparseBinding </th>
+          <th> TextureCompressionETC2 </th>
+          <th> VertexPipelineStoresAndAtomics </th>
+        </tr>
+      </thead>
+		<tbody>
+      <tr>
+          <td></td>
+          <td><button style="font-size: 16px; height: 40px; width: 100px;" type="submit">Feature Search</button></td>
+          <td></td>
+          <td></td>
+          <td><center><input type = "checkbox" name="filter_geometryShader"  {% if f_geometryShader %} checked {% endif %} /></center></td>
+          <td><center><input type = "checkbox" name="filter_tesselationShader" {% if f_tesselationShader %} checked {% endif %} /></center></td>
+          <td><center><input type = "checkbox" name="filter_shaderInt16" {% if f_shaderInt16 %} checked {% endif %} /></center></td>
+          <td><center><input type = "checkbox" name="filter_sparseBinding"{% if f_sparseBinding %} checked {% endif %}/></center></td>
+          <td><center><input type = "checkbox" name="filter_textureCompressionETC2"{% if f_textureCompressionETC2 %} checked {% endif %}/></center></td>
+          <td><center><input type = "checkbox" name="filter_vertexPipelineStoresAndAtomics"{% if f_vertexPipelineStoresAndAtomics %} checked {% endif %}/></center></td>
+      </tr>
+			{% for mygpu in gpu_array %}
+				<tr>
+          <td><center><input type = "checkbox" name ="compare" /></center></td>
+					<td>
+            <a href="/edit?name={{ mygpu.key.id() }}">{{ mygpu.key.id() }}</a>
+          </td>
+            <td> {{ mygpu.manufacturer }} </td>
+            <td> {{ mygpu.dateIssued }} </td>
+            <td> {{ mygpu.geometryShader}} </td>
+						<td> {{	mygpu.tesselationShader }} </td>
+						<td> {{	mygpu.shaderInt16 }} </td>
+						<td> {{	mygpu.sparseBinding }} </td>
+						<td> {{ mygpu.textureCompressionETC2 }} </td>
+						<td> {{	mygpu.vertexPipelineStoresAndAtomics }} </td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+  </body>
+</html>
